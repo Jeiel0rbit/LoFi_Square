@@ -1,0 +1,50 @@
+{
+  "name": "lofi_radio",
+  "version": "1.0.0",
+  "description": "radio",
+  "homepage": "https://github.com/Jetrom17/LoFi_Square.git", 
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "author": "Jeiel Miranda",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jetrom17/LoFi_Square.git"
+  },
+  "devDependencies": {
+    "electron": "^31.3.1",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.jeielmiranda.lofiradio",
+    "productName": "LoFi Radio",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "index.html",
+      "renderer.js",
+      "styles.css",
+      "assets/icons/"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icons/logo.ico",
+      "executableName": "LoFiRadio"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "assets/icons/logo.png",
+      "maintainer": "Jeiel Miranda <jeiel@duck.com>",
+      "category": "Audio"
+    }
+  }
+}
+

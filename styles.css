@@ -1,0 +1,48 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #11151b, #0b0e13);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.controls {
+  margin-bottom: 20px;
+}
+
+.control-icon {
+  font-size: 30px;
+  color: #464a51;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.3s;
+  margin: 0 15px;
+}
+
+.control-icon:hover {
+  color: #1ed760;
+  transform: scale(1.1);
+}
+
+.current-track {
+  font-size: 18px;
+}
+
