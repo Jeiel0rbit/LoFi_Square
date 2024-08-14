@@ -1,20 +1,37 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #11151b, #0b0e13);
+  background: linear-gradient(135deg, #0b0e13, #2c2f35, #0b0e13, #2c2f35);
+  background-size: 400% 400%;
+  animation: gradientAnimation 10s ease infinite;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  overflow: hidden;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
 }
 
 .container {
+  position: relative;
   text-align: center;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.5);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
 }
 
 .logo {
@@ -23,6 +40,25 @@ body {
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 20px;
+  animation: fadeInOut 6s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .controls {
@@ -45,4 +81,3 @@ body {
 .current-track {
   font-size: 18px;
 }
-
