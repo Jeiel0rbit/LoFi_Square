@@ -10,6 +10,7 @@ body {
   align-items: center;
   height: 100vh;
   overflow: hidden;
+  flex-direction: column;
 }
 
 @keyframes gradientAnimation {
@@ -32,6 +33,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   overflow: hidden;
+  z-index: 1;
 }
 
 .logo {
@@ -80,4 +82,113 @@ body {
 
 .current-track {
   font-size: 18px;
+}
+
+.volume-slider {
+  -webkit-appearance: none;
+  width: 150px;
+  height: 8px;
+  background: #888;
+  border-radius: 10px;
+  outline: none;
+  margin: 0 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+.volume-slider::-webkit-slider-runnable-track {
+  background: #888;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.volume-slider::-webkit-slider-thumb:hover,
+.volume-slider::-webkit-slider-thumb:active {
+  background: #fff;
+}
+
+.volume-slider:hover::-webkit-slider-runnable-track {
+  background: #1ed760;
+}
+
+.volume-slider::-moz-range-track {
+  background: #888;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.volume-slider::-moz-range-thumb:hover {
+  background: #fff;
+}
+
+.volume-slider:hover::-moz-range-track {
+  background: #1ed760;
+}
+
+.volume-slider::-ms-track {
+  background: #888;
+  border-radius: 10px;
+  border-color: transparent;
+  color: transparent;
+  transition: background 0.3s ease;
+}
+
+.volume-slider::-ms-thumb {
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.volume-slider::-ms-thumb:hover {
+  background: #fff;
+}
+
+.volume-slider:hover::-ms-track {
+  background: #1ed760;
+}
+
+.volume-controls {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.volume-icon {
+  font-size: 24px;
+  color: #464a51;
+  cursor: pointer;
+  transition: color 0.3s, transform 0.3s;
+  margin: 0 10px;
+}
+
+.volume-icon:hover {
+  color: #1ed760;
+  transform: scale(1.1);
 }
