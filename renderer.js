@@ -6,12 +6,8 @@ const trackName = document.getElementById('track-name');
 
 const tracks = [
   'http://radio.stereoscenic.com/ama-h',
-  'http://radio.stereoscenic.com/ama-s',
-  'http://163.172.169.217:80/asp-h',
   'http://radio.stereoscenic.com:80/am-h.mp3',
   'http://163.172.169.217:80/asp-s',
-  'http://radio.stereoscenic.com:80/am-s.mp3',
-  'http://163.172.169.217:80/asp-l',
   'http://radio.stereoscenic.com:80/am-l.mp3',
 ];
 
@@ -49,4 +45,3 @@ prevButton.addEventListener('click', () => {
   currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
   playTrack(currentTrackIndex);
 });
-
