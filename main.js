@@ -21,18 +21,18 @@ function createWindow() {
   // Menu template com um botão personalizado
   const menu = Menu.buildFromTemplate([
     {
-      label: 'Square Cloud',
+      label: 'Sobre',
       submenu: [
         {
-          label: 'Página oficial',
+          label: 'Sobre Square Cloud',
           click: () => {
             shell.openExternal('https://squarecloud.app/');
           },
         },
         {
-          label: 'Sair',
+          label: 'Sobre mim',
           click: () => {
-            app.quit();
+            shell.openExternal('https://jeiel.pages.dev');
           },
         },
       ],
