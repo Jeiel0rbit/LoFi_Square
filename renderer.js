@@ -3,6 +3,7 @@ const playButton = document.getElementById('play');
 const nextButton = document.getElementById('next');
 const prevButton = document.getElementById('prev');
 const trackName = document.getElementById('track-name');
+const volumeControl = document.getElementById('volume');
 
 const tracks = [
   'http://radio.stereoscenic.com/ama-h',
@@ -12,6 +13,8 @@ const tracks = [
 ];
 
 let currentTrackIndex = 0;
+
+audio.volume = volumeControl.value;
 
 function playTrack(index) {
   audio.src = tracks[index];
@@ -45,3 +48,9 @@ prevButton.addEventListener('click', () => {
   currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
   playTrack(currentTrackIndex);
 });
+
+volumeControl.addEventListener('input', (event) => {
+  audio.volume = event.target.value;
+});
+
+volumeControl.value = audio.volume;
