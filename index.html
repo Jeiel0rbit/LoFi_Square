@@ -19,11 +19,21 @@
       <span id="track-name"></span>
     </div>
   </div>
+  
+  <div class="category-selector">
+    <select id="category-select">
+      <option value="Ambientes">Ambientes</option>
+      <option value="Jazz">Jazz</option>
+      <option value="Eletronica">Eletronica</option>
+    </select>
+  </div>
+
   <div class="volume-controls">
     <i id="volume-down" class="fas fa-minus volume-icon"></i>
     <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5" class="volume-slider">
     <i id="volume-up" class="fas fa-plus volume-icon"></i>
   </div>
+  
   <script src="renderer.js"></script>
 </body>
 </html>
