@@ -1,9 +1,9 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #0b0e13, #2c2f35, #0b0e13, #2c2f35);
-  background-size: 400% 400%;
-  animation: gradientAnimation 10s ease infinite;
+  background: linear-gradient(135deg, #0b0e13, #2c2f35);
+  background-size: 200% 200%;
+  animation: gradientAnimation 7s ease infinite;
   color: white;
   display: flex;
   justify-content: center;
@@ -14,26 +14,21 @@ body {
 }
 
 @keyframes gradientAnimation {
-  0% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
-  100% {
-    background-position: 0% 0%;
-  }
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
 }
 
 .container {
   position: relative;
   text-align: center;
   background: rgba(0, 0, 0, 0.5);
-  padding: 20px;
-  border-radius: 10px;
+  padding: 15px;
+  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   z-index: 1;
+  transition: background 0.3s ease;
 }
 
 .logo {
@@ -41,38 +36,28 @@ body {
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   animation: fadeInOut 6s ease-in-out infinite;
 }
 
 @keyframes fadeInOut {
-  0% {
-    opacity: 0;
-  }
-  25% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-  75% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 0;
-  }
+  0% { opacity: 0; }
+  25% { opacity: 0.5; }
+  50% { opacity: 1; }
+  75% { opacity: 0.5; }
+  100% { opacity: 0; }
 }
 
 .controls {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .control-icon {
-  font-size: 30px;
+  font-size: 28px;
   color: #464a51;
   cursor: pointer;
-  transition: color 0.3s, transform 0.3s;
-  margin: 0 15px;
+  transition: color 0.3s ease, transform 0.3s ease;
+  margin: 0 12px;
 }
 
 .control-icon:hover {
@@ -81,33 +66,33 @@ body {
 }
 
 .current-track {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .volume-slider {
   -webkit-appearance: none;
-  width: 150px;
+  width: 140px;
   height: 8px;
   background: #888;
-  border-radius: 10px;
+  border-radius: 8px;
   outline: none;
-  margin: 0 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  margin: 0 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(0, 0, 0, 0.4);
   position: relative;
+  transition: background 0.3s ease;
 }
 
 .volume-slider::-webkit-slider-runnable-track {
   background: #888;
-  border-radius: 10px;
-  transition: background 0.3s ease;
+  border-radius: 8px;
 }
 
 .volume-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   background: #fff;
   border-radius: 50%;
   cursor: pointer;
@@ -126,18 +111,16 @@ body {
 
 .volume-slider::-moz-range-track {
   background: #888;
-  border-radius: 10px;
-  transition: background 0.3s ease;
+  border-radius: 8px;
 }
 
 .volume-slider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   background: #fff;
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .volume-slider::-moz-range-thumb:hover {
@@ -150,20 +133,18 @@ body {
 
 .volume-slider::-ms-track {
   background: #888;
-  border-radius: 10px;
+  border-radius: 8px;
   border-color: transparent;
   color: transparent;
-  transition: background 0.3s ease;
 }
 
 .volume-slider::-ms-thumb {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   background: #fff;
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .volume-slider::-ms-thumb:hover {
@@ -177,18 +158,72 @@ body {
 .volume-controls {
   display: flex;
   align-items: center;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .volume-icon {
   font-size: 24px;
   color: #464a51;
   cursor: pointer;
-  transition: color 0.3s, transform 0.3s;
-  margin: 0 10px;
+  transition: color 0.3s ease, transform 0.3s ease;
+  margin: 0 8px;
 }
 
 .volume-icon:hover {
   color: #1ed760;
   transform: scale(1.1);
+}
+
+.category-selector {
+  text-align: center;
+  margin: 10px 0;
+  position: relative;
+}
+
+#category-select {
+  background: #0b0e13;
+  color: #fff;
+  border: 2px solid #2c2f35;
+  border-radius: 50px;
+  padding: 8px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+#category-select::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
+  animation: waveAnimation 7s linear infinite;
+  z-index: 0;
+  transition: background 0.3s ease;
+}
+
+#category-select:hover,
+#category-select:focus {
+  background: #1e1e1e;
+  border-color: #1ed760;
+  outline: none;
+}
+
+#category-select span {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes waveAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
