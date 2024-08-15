@@ -1,15 +1,15 @@
 {
   "name": "lofi_radio",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "radio",
-  "homepage": "https://github.com/Jetrom17/LoFi_Square.git", 
+  "homepage": "https://github.com/Jetrom17/LoFi_Square.git",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
   },
   "author": "Jeiel Miranda",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/Jetrom17/LoFi_Square.git"
@@ -44,7 +44,10 @@
       "icon": "assets/icons/logo.png",
       "maintainer": "Jeiel Miranda <jeiel@duck.com>",
       "category": "Audio"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icons/logo.icns"
     }
   }
 }
-
