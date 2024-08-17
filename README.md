@@ -17,3 +17,12 @@ yarn build:win-linux
 ```bash
 yarn build:mac
 ```
+
+# Atualização
+
+Desinstale o programa anterior por completo.
+No Linux por exemplo seria o comando:
+```bash
+sudo dpkg --purge lofi-radio
+```
+> Se baixado `.deb`.
