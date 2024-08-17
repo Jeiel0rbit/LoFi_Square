@@ -2,7 +2,7 @@
   "name": "lofi_radio",
   "version": "1.0.2",
   "description": "radio",
-  "homepage": "https://github.com/Jetrom17/LoFi_Square.git",
+  "homepage": "https://github.com/Jetrom17/LoFi_Square",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -10,7 +10,7 @@
     "build:win-linux": "electron-builder -wl",
     "build:mac": "electron-builder --mac"
   },
-  "author": "Jeiel Miranda",
+  "author": "Jeiel Miranda jeiel@duck.com",
   "license": "ISC",
   "repository": {
     "type": "git",
@@ -44,8 +44,7 @@
         "deb"
       ],
       "icon": "assets/icons/logo.png",
-      "maintainer": "Jeiel Miranda <jeiel@duck.com>",
-      "category": "Audio"
+      "maintainer": "Jeiel Miranda jeiel@duck.com"
     },
     "mac": {
       "target": "dmg",
