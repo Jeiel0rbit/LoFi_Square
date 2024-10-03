@@ -8,7 +8,9 @@
     "start": "electron .",
     "build": "electron-builder",
     "build:win-linux": "electron-builder -wl",
-    "build:mac": "electron-builder --mac"
+    "build:mac": "electron-builder --mac",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "author": "Jeiel Miranda jeiel@duck.com",
   "license": "ISC",
@@ -18,7 +20,8 @@
   },
   "devDependencies": {
     "electron": "^31.3.1",
-    "electron-builder": "^24.13.3"
+    "electron-builder": "^24.13.3",
+    "jest": "^29.7.0"
   },
   "build": {
     "appId": "com.jeielmiranda.lofiradio",

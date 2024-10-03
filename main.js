@@ -1,5 +1,5 @@
-const { app, BrowserWindow, Menu, shell, Tray } = require('electron');
-const path = require('path');
+const { app, BrowserWindow, Menu, shell, Tray } = require("electron");
+const path = require("path");
 
 let tray = null; // Variável para armazenar a instância da bandeja
 let win = null; // Variável para armazenar a instância da janela
@@ -9,30 +9,30 @@ function createWindow() {
     width: 400,
     height: 400,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, "preload.js"),
       contextIsolation: true,
       enableRemoteModule: false,
       nodeIntegration: false,
     },
   });
 
-  win.loadFile('index.html');
+  win.loadFile("index.html");
 
   // Menu template com um botão personalizado
   const menu = Menu.buildFromTemplate([
     {
-      label: 'Sobre',
+      label: "Sobre",
       submenu: [
         {
-          label: 'Sobre Square Cloud',
+          label: "Sobre Square Cloud",
           click: () => {
-            shell.openExternal('https://squarecloud.app/');
+            shell.openExternal("https://squarecloud.app/");
           },
         },
         {
-          label: 'Sobre mim',
+          label: "Sobre mim",
           click: () => {
-            shell.openExternal('https://jeiel.pages.dev');
+            shell.openExternal("https://jeiel.pages.dev");
           },
         },
       ],
@@ -43,7 +43,7 @@ function createWindow() {
   Menu.setApplicationMenu(menu);
 
   // Evento para minimizar a janela ao fechar
-  win.on('close', (event) => {
+  win.on("close", (event) => {
     if (!app.isQuiting) {
       event.preventDefault();
       win.hide();
@@ -55,40 +55,40 @@ app.whenReady().then(() => {
   createWindow();
 
   // Criar a bandeja
-  tray = new Tray(path.join(__dirname, 'logo.png')); // Substitua pelo caminho do seu ícone
+  tray = new Tray(path.join(__dirname, "logo.png")); // Substitua pelo caminho do seu ícone
   const contextMenu = Menu.buildFromTemplate([
     {
-      label: 'Abrir',
+      label: "Abrir",
       click: () => {
         win.show();
       },
     },
     {
-      label: 'Sair',
+      label: "Sair",
       click: () => {
         app.isQuiting = true; // Define a flag para indicar que a aplicação deve sair
         app.quit();
       },
     },
   ]);
-  
-  tray.setToolTip('Minha Aplicação Electron');
+
+  tray.setToolTip("Minha Aplicação Electron");
   tray.setContextMenu(contextMenu);
 
   // Evento de clique na bandeja
-  tray.on('click', () => {
+  tray.on("click", () => {
     win.isVisible() ? win.hide() : win.show();
   });
 
-  app.on('activate', () => {
+  app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
     }
   });
 });
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
