@@ -16,10 +16,34 @@
 >  Eletronica: ["http://nl.ah.fm:8000/live", "http://fr2.ah.fm:8000/live"],
 >};
 
+## Changelog
+
+<details>
+  <summary>Versões</summary>
+  <details>
+    <summary>1.0.3</summary>
+    - Imagens da logo, do seu sistema, foram corrigidas. #Regression.
+    </details>
+  <details>
+    <summary>1.0.2</summary>
+    - Novo layout adicionado para o programa.
+    - Novos streams incluídas.
+    - Compatível para Mac (Experimental).
+  </details>
+  <details>
+    <summary>1.0.1/0</summary>
+    - Versão simples web.
+    - Programa para Windows e Linux.
+  </details>
+
+</details>
+
 # Instalação
 
 ```bash
-npm install --save-dev electron
+npm install --global yarn
+yarn add electron-builder --dev
+npm install
 ```
 
 #
@@ -27,7 +51,7 @@ npm install --save-dev electron
 # Executar localmente
 
 ```bash
-npm start
+npm run start
 ```
 
 # Compilação
@@ -35,7 +59,7 @@ npm start
 - Windows e Linux
 
 ```bash
-npm build:win-linux
+yarn build:win-linux
 ```
 
 #
@@ -43,7 +67,7 @@ npm build:win-linux
 - Mac
 
 ```bash
-npm build:mac
+yarn build:mac
 ```
 
 # Atualização
