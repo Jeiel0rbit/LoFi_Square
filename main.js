@@ -4,6 +4,12 @@ const path = require("path");
 let tray = null; // Variável para armazenar a instância da bandeja
 let win = null; // Variável para armazenar a instância da janela
 
+// Função para resolver caminhos absolutos
+const resolveAssetPath = (asset) =>
+  app.isPackaged
+    ? path.join(process.resourcesPath, asset)
+    : path.join(__dirname, asset);
+
 function createWindow() {
   win = new BrowserWindow({
     width: 400,
@@ -55,7 +61,7 @@ app.whenReady().then(() => {
   createWindow();
 
   // Criar a bandeja
-  tray = new Tray(path.join(__dirname, "logo.png")); // Substitua pelo caminho do seu ícone
+  tray = new Tray(resolveAssetPath("logo.png")); // Caminho dinâmico para o logo
   const contextMenu = Menu.buildFromTemplate([
     {
       label: "Abrir",
