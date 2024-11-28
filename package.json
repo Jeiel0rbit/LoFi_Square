@@ -1,6 +1,6 @@
 {
   "name": "lofi_radio",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "radio",
   "homepage": "https://github.com/Jetrom17/LoFi_Square",
   "main": "main.js",
@@ -19,8 +19,8 @@
     "url": "https://github.com/Jetrom17/LoFi_Square.git"
   },
   "devDependencies": {
-    "electron": "^31.3.1",
-    "electron-builder": "^24.13.3",
+    "electron": "^31.7.5",
+    "electron-builder": "^25.1.8",
     "jest": "^29.7.0"
   },
   "build": {
@@ -34,7 +34,9 @@
       "index.html",
       "renderer.js",
       "styles.css",
-      "assets/icons/"
+      "assets/icons/**/*",
+      "logo.png",
+      "preload.js"
     ],
     "win": {
       "target": "nsis",
