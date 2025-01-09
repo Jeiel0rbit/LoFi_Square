@@ -27,18 +27,26 @@ let currentTrackIndex = 0;
 audio.volume = volumeControl.value;
 
 function playTrack(index) {
-  audio.src = currentCategory[index];
-  audio.play();
-  trackName.textContent = `Playing ${index + 1}`;
-  playButton.classList.remove("fa-play");
-  playButton.classList.add("fa-pause");
+  try {
+    audio.src = currentCategory[index];
+    audio.play();
+    trackName.textContent = `Playing ${index + 1}`;
+    playButton.classList.remove("fa-play");
+    playButton.classList.add("fa-pause");
+  } catch (error) {
+    console.error("Failed to play track:", error);
+  }
 }
 
 function pauseTrack() {
-  audio.pause();
-  trackName.textContent = "Pausado";
-  playButton.classList.remove("fa-pause");
-  playButton.classList.add("fa-play");
+  try {
+    audio.pause();
+    trackName.textContent = "Pausado";
+    playButton.classList.remove("fa-pause");
+    playButton.classList.add("fa-play");
+  } catch (error) {
+    console.error("Failed to pause track:", error);
+  }
 }
 
 playButton.addEventListener("click", () => {

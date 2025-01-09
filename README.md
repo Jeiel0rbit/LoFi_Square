@@ -42,8 +42,8 @@
 
 ```bash
 npm install --global yarn
-yarn add electron-builder --dev
-npm install
+yarn add electron-builder #--dev
+yarn install
 ```
 
 #
@@ -51,23 +51,31 @@ npm install
 # Executar localmente
 
 ```bash
-npm run start
+yarn start
 ```
 
 # Compilação
 
-- Windows e Linux
+- Windows 10/11
 
 ```bash
-yarn build:win-linux
+yarn electron-builder build --win
 ```
 
-#
+```bash
+yarn electron-builder build --linux
+```
 
 - Mac
 
 ```bash
-yarn build:mac
+yarn electron-builder build --mac
+```
+
+Todos:
+
+```bash
+yarn electron-builder build -mwl
 ```
 
 # Atualização

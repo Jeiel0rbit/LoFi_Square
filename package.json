@@ -1,47 +1,58 @@
 {
-  "name": "lofi_radio",
-  "version": "1.0.3",
-  "description": "radio",
-  "homepage": "https://github.com/Jetrom17/LoFi_Square",
+  "name": "LoFiRadio",
+  "version": "1.0.4",
+  "description": "LoFi Radio Player",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder",
-    "build:win-linux": "electron-builder -wl",
-    "build:mac": "electron-builder --mac",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "build:win": "electron-builder build --win",
+    "build:linux": "electron-builder build --linux",
+    "build:mac": "electron-builder build --mac"
   },
-  "author": "Jeiel Miranda jeiel@duck.com",
-  "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Jetrom17/LoFi_Square.git"
-  },
+  "author": "Jeiel Miranda",
+  "license": "MIT",
   "devDependencies": {
-    "electron": "^31.7.5",
-    "electron-builder": "^25.1.8",
-    "jest": "^29.7.0"
+    "electron": "^33.3.1",
+    "electron-builder": "^22.11.7"
   },
   "build": {
-    "appId": "com.jeielmiranda.lofiradio",
-    "productName": "LoFi Radio",
-    "directories": {
-      "output": "dist"
-    },
+    "appId": "com.lofiradio.app",
     "files": [
-      "main.js",
-      "index.html",
-      "renderer.js",
+      "dist/",
       "styles.css",
-      "assets/icons/**/*",
       "logo.png",
-      "preload.js"
+      "main.js",
+      "preload.js",
+      "index.html",
+      "assets/"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "extraResources": [
+      {
+        "from": "assets/",
+        "to": "assets/",
+        "filter": [
+          "**/*"
+        ]
+      }
     ],
     "win": {
-      "target": "nsis",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
       "icon": "assets/icons/logo.ico",
-      "executableName": "LoFiRadio"
+      "executableName": "LoFiRadio",
+      "artifactName": "${productName}-Setup-${version}.${ext}",
+      "publisherName": "Jeiel Miranda"
     },
     "linux": {
       "target": [
@@ -49,11 +60,31 @@
         "deb"
       ],
       "icon": "assets/icons/logo.png",
-      "maintainer": "Jeiel Miranda jeiel@duck.com"
+      "maintainer": "Jeiel Miranda jeiel@duck.com",
+      "category": "Audio",
+      "description": "LoFi Radio Player",
+      "desktop": {
+        "Name": "LoFi Radio",
+        "Type": "Application",
+        "Categories": "Audio;Music"
+      }
     },
     "mac": {
       "target": "dmg",
       "icon": "assets/icons/logo.icns"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "Jetrom17",
+      "repo": "LoFi_Square"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "deleteAppDataOnUninstall": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
     }
   }
 }
