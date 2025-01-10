@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="pt-br">
   <head>
+    <link rel="icon" href="./assets/icons/logo.ico" type="image/x-icon" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LoFi Square</title>
@@ -9,10 +10,11 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
+    <link rel="manifest" href="manifest.json">
   </head>
   <body>
     <div class="container">
-      <img src="./logo.png" alt="Logo" class="logo" />
+      <img src="./assets/icons/logo.png" alt="Logo" class="logo" />
       <div class="controls">
         <i id="prev" class="fas fa-backward control-icon"></i>
         <i id="play" class="fas fa-play control-icon"></i>
@@ -45,6 +47,53 @@
       <i id="volume-up" class="fas fa-plus volume-icon"></i>
     </div>
 
-    <script src="renderer.js"></script>
+    <!-- PWA Install Modal -->
+    <div class="modal" id="pwaModal">
+      <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">LoFi Square</h5>
+      </div>
+      <div class="modal-body">
+        <p>Instale o LoFi Square para uma melhor experiência.</p>
+        <button type="button" id="installButton" class="install-button">Instalar</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="close-modal">Fechar</button>
+      </div>
+      </div>
+    </div>
+
+    <script>
+      let deferredPrompt;
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      setTimeout(() => {
+        document.getElementById('pwaModal').style.display = 'block';
+      }, 3000);
+      });
+
+      document.getElementById('installButton').addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+        } else {
+        console.log('User dismissed the install prompt');
+        }
+        deferredPrompt = null;
+        document.getElementById('pwaModal').style.display = 'none';
+      }
+      });
+
+      document.querySelectorAll('.close-modal').forEach(button => {
+      button.addEventListener('click', () => {
+        document.getElementById('pwaModal').style.display = 'none';
+      });
+      });
+    </script>
+    <script src="streams.js"></script>
   </body>
 </html>

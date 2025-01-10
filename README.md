@@ -1,5 +1,5 @@
 > [!NOTE]  
-> Contribuição simples, para adicionar mais streams, você pode está editando o arquivo `renderer.js`.
+> Contribuição simples, para adicionar mais streams, você pode está editando o arquivo `streams.js`.
 > ```js
 > const categories = {
 >  Ambientes: [
@@ -16,10 +16,16 @@
 >  Eletronica: ["http://nl.ah.fm:8000/live", "http://fr2.ah.fm:8000/live"],
 >};
 
+![](/assets/image.png)
+
 ## Changelog
 
 <details>
   <summary>Versões</summary>
+  <details>
+  <summary>1.0.4</summary>
+  Em 10/01/2025, o programa tinha mais de 500 MB. Devido ao seu tamanho, incompatibilidade para construção no MacOS e bugs nas versões 1.0.2 e 1.0.3, causados por dependências incompatíveis, o projeto foi migrado para a tecnologia PWA.
+  </details>
   <details>
     <summary>1.0.3</summary>
     - Imagens da logo, do seu sistema, foram corrigidas. #Regression.
@@ -40,55 +46,9 @@
 
 # Instalação
 
-```bash
-npm install --global yarn
-yarn add electron-builder #--dev
-yarn install
-```
+Após tela completa de carregamento do site, geralmente 6 segundos, será solicitado para baixar como aplicativo para seu Desktop ou Smartphone. Esse aplicativo está atrelado ao seu navegador. O tamanho do app é insignificante.
 
 #
 
-# Executar localmente
-
-```bash
-yarn start
-```
-
-# Compilação
-
-- Windows 10/11
-
-```bash
-yarn electron-builder build --win
-```
-
-```bash
-yarn electron-builder build --linux
-```
-
-- Mac
-
-```bash
-yarn electron-builder build --mac
-```
-
-Todos:
-
-```bash
-yarn electron-builder build -mwl
-```
-
-# Atualização
-
-Desinstale o programa anterior por completo. Pois o programa não tem sistema de atualização nativo.
-No Linux por exemplo seria o comando:
-
-```bash
-sudo dpkg --purge lofi-radio
-```
-
-> Se baixado `.deb`.
-
-
-> [!WARNING]  
-> O software não tem licença. Por esse motivo, ignore o aviso do seu anti-malware. 
+> [!INFO]
+> O programa para Windows, Linux e MacOS foi descontinuado. A nova versão está disponível como um website a partir de 10/01/2025.
