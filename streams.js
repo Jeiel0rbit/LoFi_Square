@@ -8,19 +8,31 @@ const categorySelect = document.getElementById("category-select");
 
 const categories = {
   Ambientes: [
-    "http://radio.stereoscenic.com/ama-h",
-    "http://radio.stereoscenic.com/ama-s",
-    "http://radio.stereoscenic.com/ama-h",
-    "http://radio.stereoscenic.com/asp-h3",
+    "https://radio.stereoscenic.com/ama-h",
+    "https://radio.stereoscenic.com/ama-s",
+    "https://radio.stereoscenic.com/ama-h",
+    "https://radio.stereoscenic.com/asp-h3",
+    "https://144.76.106.52:7000/chillout.mp3",
   ],
   Jazz: [
-    "http://icecast.radiofrance.fr/fip-midfi.mp3",
+    "https://icecast.radiofrance.fr/fip-midfi.mp3",
     "https://icecast.radiofrance.fr/fipjazz-midfi.mp3",
+    "https://streamingv2.shoutcast.com/djdavesessions?icy=https",
     "https://icecast.radiofrance.fr/fipgroove-midfi.mp3",
   ],
   Eletronica: [
-    "http://nl.ah.fm:8000/live", 
-    "http://fr2.ah.fm:8000/live",
+    "https://144.76.106.52:7000/electronic.mp3",
+    "https://144.76.106.52:7000/psytrance.mp3?type=http&nocache=497905", 
+    "http://51.68.153.140:9041/1?type=http&nocache=46415",
+    "https://144.76.106.52:7000/techno.mp3?type=http&nocache=498099",
+    "https://ice3.somafm.com/groovesalad-128-mp3",
+  ],
+  Clássica: [
+    "https://everestpanel.lowcoststream.com:7135/;?icy=https",
+  ],
+  Oriental:
+  [
+    "https://t4.bcbits.com/stream/a02589df14e2b8e781d81f2c203ff5bb/mp3-128/2693102669?p=0&ts=1737120943&t=3b6c9acd5fcd18cd04ef736b415ad8f2926ee2e0&token=1737120943_41d2abae470a59ea22380aae00af4df6206b93bc"
   ],
 };
 
@@ -40,6 +52,13 @@ function playTrack(index) {
     console.error("Failed to play track:", error);
   }
 }
+
+audio.addEventListener('ended', () => {
+  if (currentCategory === categories.Oriental) { // Apenas para Oriental
+    currentTrackIndex = (currentTrackIndex + 1) % currentCategory.length;
+    playTrack(currentTrackIndex); 
+  }
+});
 
 function pauseTrack() {
   try {

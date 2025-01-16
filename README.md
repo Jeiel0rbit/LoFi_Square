@@ -1,20 +1,24 @@
 > [!NOTE]  
-> Contribuição simples, para adicionar mais streams, você pode está editando o arquivo `streams.js`.
+> Contribuição simples, para adicionar mais streams, você pode estar editando o arquivo "streams.js".
 > ```js
 > const categories = {
->  Ambientes: [
->    "http://radio.stereoscenic.com/ama-h",
->    "http://radio.stereoscenic.com:80/am-h.mp3",
->    "http://163.172.169.217:80/asp-s",
->    "http://radio.stereoscenic.com:80/am-l.mp3",
->  ],
->  Jazz: [
->    "http://icecast.radiofrance.fr/fip-midfi.mp3",
->    "https://icecast.radiofrance.fr/fipjazz-midfi.mp3",
->    "https://icecast.radiofrance.fr/fipgroove-midfi.mp3",
->  ],
->  Eletronica: ["http://nl.ah.fm:8000/live", "http://fr2.ah.fm:8000/live"],
->};
+>   Ambientes: [
+>     "http://radio.stereoscenic.com/ama-h",
+>     "http://radio.stereoscenic.com:80/am-h.mp3",
+>     "http://163.172.169.217:80/asp-s",
+>     "http://radio.stereoscenic.com:80/am-l.mp3"
+>   ],
+>   Jazz: [
+>     "http://icecast.radiofrance.fr/fip-midfi.mp3",
+>     "https://icecast.radiofrance.fr/fipjazz-midfi.mp3",
+>     "https://icecast.radiofrance.fr/fipgroove-midfi.mp3"
+>   ],
+>   Eletronica: [
+>     "http://nl.ah.fm:8000/live",
+>     "http://fr2.ah.fm:8000/live"
+>   ]
+> };
+> ```
 
 ![](/assets/image.png)
 
