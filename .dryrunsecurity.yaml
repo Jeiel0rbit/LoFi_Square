@@ -1,0 +1,3 @@
+codePolicies:
+  - title: "XSS attack"
+    question: "Ways to prevent XSS attacks?"
