@@ -1,3 +1,12 @@
+sensitiveCodepaths:
+  - streams.js
+  - index.html
+allowedAuthors:
+  usernames:
+    - @jetrom17
+notificationList:
+  - @DryRunSec/security
+  - @jetrom17
 codePolicies:
-  - title: "XSS attack"
+  - title: "XSS attack index.html"
     question: "Ways to prevent XSS attacks?"
