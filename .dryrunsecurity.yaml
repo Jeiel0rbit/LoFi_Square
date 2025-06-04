@@ -1,6 +1,5 @@
 sensitiveCodepaths:
   - 'index.html'
-  - 'stream.js'
 allowedAuthors:
   usernames:
   - 'jeiel0rbit'

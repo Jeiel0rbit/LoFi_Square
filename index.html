@@ -13,6 +13,17 @@
     <link rel="manifest" href="manifest.json">
   </head>
   <body>
+    <div class="cloud-hosting-loader" id="cloudLoader">
+      <img src="./assets/icons/logo.png" alt="Logo" class="loader-logo" id="loaderLogo" />
+      <div class="cloud"></div>
+      <div class="cloud cloud2"></div>
+      <div class="cloud cloud3"></div>
+      <div class="beam"></div>
+      <div class="upload-arrow">
+        <i class="fas fa-arrow-up"></i>
+      </div>
+      <span class="loader-text">Carregando para a nuvem...</span>
+    </div>
     <div class="container">
       <img src="./assets/icons/logo.png" alt="Logo" class="logo" />
       <div class="controls">
@@ -94,6 +105,25 @@
       button.addEventListener('click', () => {
         document.getElementById('pwaModal').style.display = 'none';
       });
+      });
+
+      window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+          // Anima a logo subindo
+          const loaderLogo = document.getElementById('loaderLogo');
+          loaderLogo.classList.add('move-to-card');
+
+          // Após a animação, esconde o loader e ativa o efeito no card
+          setTimeout(() => {
+            document.getElementById('cloudLoader').style.display = 'none';
+            // Efeito de conexão estabelecida no card
+            const container = document.querySelector('.container');
+            container.classList.add('connection-established');
+            setTimeout(() => {
+              container.classList.remove('connection-established');
+            }, 1200);
+          }, 1200); // Tempo igual ao transition do CSS
+        }, 1800); // Tempo do loader antes da animação da logo
       });
     </script>
     <script src="streams.js"></script>
