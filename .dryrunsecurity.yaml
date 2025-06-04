@@ -1,11 +1,6 @@
----
 sensitiveCodepaths:
-  - 'streams.js'
   - 'index.html'
+  - 'stream.js'
 allowedAuthors:
   usernames:
-    - jetrom17
-codePolicies:
-  - title: "XSS attack index.html"
-    question: "Ways to prevent XSS attacks?"
----
+  - 'jeiel0rbit'
