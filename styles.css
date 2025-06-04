@@ -363,7 +363,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  animation: fadeOutLoader 1s 2.5s forwards;
+  animation: fadeOutLoader 2s 3.0s forwards;
   pointer-events: none;
 }
 
@@ -379,7 +379,7 @@
   top: 40%; left: 50%;
   transform: translate(-50%, -60%);
   box-shadow: 0 8px 32px 8px #1ed76033;
-  opacity: 0.95;
+  opacity: 0.8;
   animation: cloudFloat 3s ease-in-out infinite;
 }
 
@@ -452,7 +452,7 @@
 /* Logo animada no loader */
 .loader-logo {
   position: absolute;
-  top: 60%;
+  top: 60%; /* Posição inicial */
   left: 50%;
   width: 90px;
   height: 90px;
@@ -461,8 +461,13 @@
   transform: translate(-50%, -50%);
   opacity: 1;
   z-index: 10;
-  transition: top 1.2s cubic-bezier(.7,1.7,.7,1), opacity 0.5s;
+  transition: top 5.0s ease-out, opacity 1.5s ease-out;
   box-shadow: 0 0 32px 4px #1ed76055;
+}
+
+.loader-logo.move-up {
+  top: 10%;
+  opacity: 0;
 }
 
 /* Estado animado: logo sobe para o card */
