@@ -54,5 +54,5 @@ Após tela completa de carregamento do site, geralmente 6 segundos, será solici
 
 #
 
-> [!INFO]
+> [!WARNING]
 > O programa para Windows, Linux e MacOS foi descontinuado. A nova versão está disponível como um website a partir de 10/01/2025.
