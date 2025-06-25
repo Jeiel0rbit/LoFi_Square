@@ -1,410 +1,583 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="LoFi Square é um player de música Lo-Fi minimalista criado por Jeiel Miranda. Desfrute de uma experiência relaxante e sem distrações.">
+    <meta name="keywords" content="lofi, música lo-fi, LoFi Square, Jeiel Miranda, player lo-fi, música relaxante, focus music">
+    <meta name="author" content="Jeiel Miranda">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="LoFi Square - Player de Música Lo-Fi por Jeiel Miranda">
+    <meta property="og:description" content="Player de música Lo-Fi minimalista e relaxante. Ideal para foco, estudos ou relaxamento.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jeielmiranda.is-a.dev/LoFi_Square/"> 
+    <meta property="og:image" content="https://jeielmiranda.is-a.dev/LoFi_Square/assets/icons/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LoFi Square">
+    <meta name="twitter:description" content="Player de música Lo-Fi minimalista criado por Jeiel Miranda.">
+    <meta name="twitter:image" content="https://jeielmiranda.is-a.dev/LoFi_Square/assets/icons/logo.png">
     <title>LoFi Square - por Jeiel Miranda</title>
-    
+
     <!-- Favicon e Manifest -->
-    <link rel="icon" href="https://raw.githubusercontent.com/jeiel0rbit/LoFi_Square/main/assets/icons/logo.ico" type="image/x-icon" />
-    <link rel="manifest" href="manifest.json">
+    <link
+      rel="icon"
+      href="assets/icons/logo.png"
+      type="image/x-icon"
+    />
+    <link rel="manifest" href="manifest.json" />
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Fontes e Ícones -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
 
     <style>
-        /* Estilos base e fundo espacial */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #000000;
-            color: #f3f4f6; /* cinza claro */
-            overflow: hidden;
-        }
+      /* Estilos base e fundo espacial */
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #000000;
+        color: #f3f4f6; /* cinza claro */
+        overflow: hidden;
+      }
 
-        #background-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(45deg, #000000, #111111, #000000);
-            background-size: 200% 200%;
-            animation: gradient-animation 25s ease infinite;
-        }
+      #background-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: linear-gradient(45deg, #000000, #111111, #000000);
+        background-size: 200% 200%;
+        animation: gradient-animation 25s ease infinite;
+      }
 
-        @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+      @keyframes gradient-animation {
+        0% {
+          background-position: 0% 50%;
         }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
 
-        /* Estilo do Player Card (Glassmorphism Escuro) */
-        .player-card {
-            background: rgba(17, 17, 17, 0.5); /* Um preto levemente transparente */
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
+      /* Estilo do Player Card (Glassmorphism Escuro) */
+      .player-card {
+        background: rgba(17, 17, 17, 0.5); /* Um preto levemente transparente */
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
 
-        /* Estilo customizado para o range do volume */
-        .volume-slider {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 999px;
-            outline: none;
-            transition: background 0.2s;
-        }
+      /* Estilo customizado para o range do volume */
+      .volume-slider {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        outline: none;
+        transition: background 0.2s;
+      }
 
-        .volume-slider:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
+      .volume-slider:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
 
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            background: #f3f4f6;
-            cursor: pointer;
-            border-radius: 50%;
-            transition: transform 0.2s;
-        }
-        
-        .volume-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.1);
-        }
+      .volume-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        background: #f3f4f6;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: transform 0.2s;
+      }
 
-        .volume-slider::-moz-range-thumb {
-            width: 16px;
-            height: 16px;
-            background: #f3f4f6;
-            cursor: pointer;
-            border-radius: 50%;
-            border: none;
-        }
-        
-        /* Estilo do Select */
-        .custom-select {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='2' stroke='%239CA3AF' class='w-6 h-6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m19.5 8.25-7.5 7.5-7.5-7.5' /%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 0.75rem center;
-            background-size: 1.25em;
-        }
+      .volume-slider::-webkit-slider-thumb:hover {
+        transform: scale(1.1);
+      }
 
-        /* Animação do logo */
-        @keyframes subtle-pulse {
-            0%, 100% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.15); }
-            50% { box-shadow: 0 0 25px rgba(255, 255, 255, 0.25); }
-        }
-        .logo-pulse {
-            animation: subtle-pulse 4s ease-in-out infinite;
-        }
+      .volume-slider::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+        background: #f3f4f6;
+        cursor: pointer;
+        border-radius: 50%;
+        border: none;
+      }
 
-        /* Loader */
-        .loader-container {
-            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+      /* Estilo do Select */
+      .custom-select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='2' stroke='%239CA3AF' class='w-6 h-6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m19.5 8.25-7.5 7.5-7.5-7.5' /%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 1.25em;
+      }
+
+      /* Animação do logo */
+      @keyframes subtle-pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
         }
-        .loader-container.hidden {
-            opacity: 0;
-            visibility: hidden;
+        50% {
+          box-shadow: 0 0 25px rgba(255, 255, 255, 0.25);
         }
+      }
+      .logo-pulse {
+        animation: subtle-pulse 4s ease-in-out infinite;
+      }
+
+      /* Loader */
+      .loader-container {
+        transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+      }
+      .loader-container.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
     </style>
-</head>
-<body class="w-full h-screen flex items-center justify-center p-4">
-
+  </head>
+  <body class="w-full h-screen flex items-center justify-center p-4">
     <!-- Fundo de Partículas (Estrelas) -->
     <canvas id="background-canvas"></canvas>
 
     <!-- Loader -->
-    <div id="loader" class="loader-container fixed inset-0 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center z-50">
-        <img src="https://raw.githubusercontent.com/jeiel0rbit/LoFi_Square/main/assets/icons/logo.png" alt="Logo LoFi Square" class="w-24 h-24 rounded-full mb-4 logo-pulse">
-        <p class="text-gray-300 text-lg">Carregando streams...</p>
+    <div
+      id="loader"
+      class="loader-container fixed inset-0 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center z-50"
+    >
+      <img
+        src="https://raw.githubusercontent.com/jeiel0rbit/LoFi_Square/main/assets/icons/logo.png"
+        alt="Logo LoFi Square"
+        class="w-24 h-24 rounded-full mb-4 logo-pulse"
+      />
+      <p class="text-gray-300 text-lg">Carregando streams...</p>
     </div>
 
     <!-- Player -->
-    <main id="player-container" class="player-card w-full max-w-sm rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6 opacity-0 translate-y-4 transition-all duration-700 ease-out">
-        
-        <!-- Cabeçalho -->
-        <div class="text-center">
-            <img id="logo" src="https://raw.githubusercontent.com/jeiel0rbit/LoFi_Square/main/assets/icons/logo.png" alt="Logo" class="w-28 h-28 mx-auto rounded-full shadow-lg logo-pulse transition-transform duration-300 hover:scale-105">
-            <div id="track-info" class="mt-4">
-                <h1 id="category-name" class="text-xl font-bold text-white">Ambientes</h1>
-                <p id="track-name" class="text-gray-400 text-sm">Pronto para tocar</p>
-            </div>
+    <main
+      id="player-container"
+      class="player-card w-full max-w-sm rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6 opacity-0 translate-y-4 transition-all duration-700 ease-out"
+    >
+      <!-- Cabeçalho -->
+      <div class="text-center">
+        <img
+          id="logo"
+          src="https://raw.githubusercontent.com/jeiel0rbit/LoFi_Square/main/assets/icons/logo.png"
+          alt="Logo"
+          class="w-28 h-28 mx-auto rounded-full shadow-lg logo-pulse transition-transform duration-300 hover:scale-105"
+        />
+        <div id="track-info" class="mt-4">
+          <h1 id="category-name" class="text-xl font-bold text-white">
+            Ambientes
+          </h1>
+          <p id="track-name" class="text-gray-400 text-sm">Pronto para tocar</p>
+        </div>
+      </div>
+
+      <!-- Controles Principais -->
+      <div class="flex items-center justify-center space-x-6">
+        <button
+          id="prev"
+          class="text-gray-400 hover:text-white transition-colors duration-200"
+        >
+          <i class="fas fa-backward fa-2x"></i>
+        </button>
+        <button
+          id="play"
+          class="bg-white text-black w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-200 transition-all duration-200 transform hover:scale-105"
+        >
+          <i id="play-icon" class="fas fa-play fa-2x ml-1"></i>
+        </button>
+        <button
+          id="next"
+          class="text-gray-400 hover:text-white transition-colors duration-200"
+        >
+          <i class="fas fa-forward fa-2x"></i>
+        </button>
+      </div>
+
+      <!-- Seletor de Categoria e Volume -->
+      <div class="space-y-6 pt-4">
+        <!-- Seletor de Categoria -->
+        <div>
+          <select
+            id="category-select"
+            class="custom-select w-full bg-black/50 border border-gray-700 rounded-lg py-2 px-4 text-gray-300 focus:outline-none focus:ring-2 focus:ring-white transition-all duration-200"
+          >
+            <option value="Ambientes">Ambientes</option>
+            <option value="Jazz">Jazz</option>
+            <option value="Eletronica">Eletronica</option>
+            <option value="Clássica">Clássica</option>
+            <option value="Oriental">Oriental</option>
+          </select>
         </div>
 
-        <!-- Controles Principais -->
-        <div class="flex items-center justify-center space-x-6">
-            <button id="prev" class="text-gray-400 hover:text-white transition-colors duration-200">
-                <i class="fas fa-backward fa-2x"></i>
-            </button>
-            <button id="play" class="bg-white text-black w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-200 transition-all duration-200 transform hover:scale-105">
-                <i id="play-icon" class="fas fa-play fa-2x ml-1"></i>
-            </button>
-            <button id="next" class="text-gray-400 hover:text-white transition-colors duration-200">
-                <i class="fas fa-forward fa-2x"></i>
-            </button>
+        <!-- Controle de Volume -->
+        <div class="flex items-center space-x-3">
+          <i class="fas fa-volume-down text-gray-500"></i>
+          <input
+            type="range"
+            id="volume"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0.5"
+            class="volume-slider"
+          />
+          <i class="fas fa-volume-up text-gray-500"></i>
         </div>
-
-        <!-- Seletor de Categoria e Volume -->
-        <div class="space-y-6 pt-4">
-            <!-- Seletor de Categoria -->
-            <div>
-                <select id="category-select" class="custom-select w-full bg-black/50 border border-gray-700 rounded-lg py-2 px-4 text-gray-300 focus:outline-none focus:ring-2 focus:ring-white transition-all duration-200">
-                    <option value="Ambientes">Ambientes</option>
-                    <option value="Jazz">Jazz</option>
-                    <option value="Eletronica">Eletronica</option>
-                    <option value="Clássica">Clássica</option>
-                    <option value="Oriental">Oriental</option>
-                </select>
-            </div>
-            
-            <!-- Controle de Volume -->
-            <div class="flex items-center space-x-3">
-                <i class="fas fa-volume-down text-gray-500"></i>
-                <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5" class="volume-slider">
-                <i class="fas fa-volume-up text-gray-500"></i>
-            </div>
-        </div>
+      </div>
     </main>
-    
+
     <!-- Modal de Instalação PWA -->
-    <div id="pwaModal" class="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-40 p-4 hidden">
-      <div class="bg-gray-900/80 border border-gray-700 max-w-sm w-full rounded-2xl p-6 text-center shadow-2xl">
+    <div
+      id="pwaModal"
+      class="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-40 p-4 hidden"
+    >
+      <div
+        class="bg-gray-900/80 border border-gray-700 max-w-sm w-full rounded-2xl p-6 text-center shadow-2xl"
+      >
         <h5 class="text-xl font-bold text-white mb-2">Instalar LoFi Square</h5>
-        <p class="text-gray-300 mb-6">Tenha o aplicativo em seu dispositivo para uma experiência mais fluida.</p>
+        <p class="text-gray-300 mb-6">
+          Tenha o aplicativo em seu dispositivo para uma experiência mais
+          fluida.
+        </p>
         <div class="flex gap-4">
-            <button id="installButton" class="w-full bg-white text-black font-semibold py-2 px-4 rounded-lg hover:bg-gray-200 transition-all duration-200">Instalar</button>
-            <button class="close-modal w-full bg-gray-700/50 text-gray-300 font-semibold py-2 px-4 rounded-lg hover:bg-gray-600/50 transition-all duration-200">Agora não</button>
+          <button
+            id="installButton"
+            class="w-full bg-white text-black font-semibold py-2 px-4 rounded-lg hover:bg-gray-200 transition-all duration-200"
+          >
+            Instalar
+          </button>
+          <button
+            class="close-modal w-full bg-gray-700/50 text-gray-300 font-semibold py-2 px-4 rounded-lg hover:bg-gray-600/50 transition-all duration-200"
+          >
+            Agora não
+          </button>
         </div>
       </div>
     </div>
 
+    <!-- Modal de Erro -->
+    <div
+      id="errorModal"
+      class="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 p-4 hidden"
+    >
+      <div
+        class="bg-gray-900/90 border border-red-600 max-w-sm w-full rounded-2xl p-6 text-center shadow-2xl"
+      >
+        <h5 class="text-xl font-bold text-red-400 mb-2">Erro ao reproduzir</h5>
+        <p id="errorMessage" class="text-gray-200 mb-6"></p>
+        <button
+          id="closeErrorModal"
+          class="w-full bg-red-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 transition-all duration-200"
+        >
+          Fechar
+        </button>
+      </div>
+    </div>
 
     <script>
-        // --- Lógica do Player ---
-        const audio = new Audio();
-        const playButton = document.getElementById("play");
-        const playIcon = document.getElementById("play-icon");
-        const nextButton = document.getElementById("next");
-        const prevButton = document.getElementById("prev");
-        const trackNameEl = document.getElementById("track-name");
-        const categoryNameEl = document.getElementById("category-name");
-        const volumeControl = document.getElementById("volume");
-        const categorySelect = document.getElementById("category-select");
-        const logo = document.getElementById('logo');
+      // --- Lógica do Player ---
+      const audio = new Audio();
+      const playButton = document.getElementById("play");
+      const playIcon = document.getElementById("play-icon");
+      const nextButton = document.getElementById("next");
+      const prevButton = document.getElementById("prev");
+      const trackNameEl = document.getElementById("track-name");
+      const categoryNameEl = document.getElementById("category-name");
+      const volumeControl = document.getElementById("volume");
+      const categorySelect = document.getElementById("category-select");
+      const logo = document.getElementById("logo");
 
-        const categories = {
-            Ambientes: ["https://radio.stereoscenic.com/ama-h", "https://radio.stereoscenic.com/ama-s", "https://radio.stereoscenic.com/asp-h3", "https://144.76.106.52:7000/chillout.mp3"],
-            Jazz: ["https://icecast.radiofrance.fr/fip-midfi.mp3", "https://icecast.radiofrance.fr/fipjazz-midfi.mp3", "https://streamingv2.shoutcast.com/djdavesessions?icy=https", "https://icecast.radiofrance.fr/fipgroove-midfi.mp3"],
-            Eletronica: ["https://144.76.106.52:7000/electronic.mp3", "https://144.76.106.52:7000/psytrance.mp3", "http://51.68.153.140:9041/1", "https://144.76.106.52:7000/techno.mp3", "https://ice3.somafm.com/groovesalad-128-mp3"],
-            Clássica: ["https://everestpanel.lowcoststream.com:7135/;?icy=https"],
-            Oriental: ["https://t4.bcbits.com/stream/a02589df14e2b8e781d81f2c203ff5bb/mp3-128/2693102669?p=0&ts=1737120943&t=3b6c9acd5fcd18cd04ef736b415ad8f2926ee2e0&token=1737120943_41d2abae470a59ea22380aae00af4df6206b93bc"]
-        };
+      const categories = {
+        Ambientes: [
+          "https://radio.stereoscenic.com/ama-h",
+          "https://radio.stereoscenic.com/ama-s",
+          "https://radio.stereoscenic.com/asp-h3",
+          "https://144.76.106.52:7000/chillout.mp3",
+        ],
+        Jazz: [
+          "https://icecast.radiofrance.fr/fip-midfi.mp3",
+          "https://icecast.radiofrance.fr/fipjazz-midfi.mp3",
+          "https://streamingv2.shoutcast.com/djdavesessions?icy=https",
+          "https://icecast.radiofrance.fr/fipgroove-midfi.mp3",
+        ],
+        Eletronica: [
+          "https://144.76.106.52:7000/electronic.mp3",
+          "https://144.76.106.52:7000/psytrance.mp3",
+          "http://51.68.153.140:9041/1",
+          "https://144.76.106.52:7000/techno.mp3",
+          "https://ice3.somafm.com/groovesalad-128-mp3",
+        ],
+        Clássica: ["https://everestpanel.lowcoststream.com:7135/;?icy=https"],
+        Oriental: [
+          "https://t4.bcbits.com/stream/a02589df14e2b8e781d81f2c203ff5bb/mp3-128/2693102669?p=0&ts=1737120943&t=3b6c9acd5fcd18cd04ef736b415ad8f2926ee2e0&token=1737120943_41d2abae470a59ea22380aae00af4df6206b93bc",
+        ],
+      };
 
-        let currentCategoryKey = "Ambientes";
-        let currentTrackIndex = 0;
+      let currentCategoryKey = "Ambientes";
+      let currentTrackIndex = 0;
 
-        function updateUIOnPlay() {
-            playIcon.classList.remove("fa-play", "ml-1");
-            playIcon.classList.add("fa-pause");
-            logo.classList.remove('logo-pulse');
-            logo.style.animation = 'spin 20s linear infinite';
+      const errorModal = document.getElementById('errorModal');
+      const errorMessage = document.getElementById('errorMessage');
+      const closeErrorModal = document.getElementById('closeErrorModal');
+
+      function showErrorModal(msg) {
+          errorMessage.textContent = msg;
+          errorModal.classList.remove('hidden');
+      }
+
+      closeErrorModal.addEventListener('click', () => {
+          errorModal.classList.add('hidden');
+      });
+
+      function updateUIOnPlay() {
+        playIcon.classList.remove("fa-play", "ml-1");
+        playIcon.classList.add("fa-pause");
+        logo.classList.remove("logo-pulse");
+        logo.style.animation = "spin 20s linear infinite";
+      }
+
+      function updateUIOnPause() {
+        playIcon.classList.remove("fa-pause");
+        playIcon.classList.add("fa-play", "ml-1");
+        trackNameEl.textContent = "Pausado";
+        logo.classList.add("logo-pulse");
+        logo.style.animation = "";
+      }
+
+      function playTrack(index) {
+        try {
+          const currentCategory = categories[currentCategoryKey];
+          if (!currentCategory || !currentCategory[index]) {
+              throw new Error("Rádio não encontrada nesta categoria.");
+          }
+          audio.src = currentCategory[index];
+          audio.play().then(() => {
+              trackNameEl.textContent = `Tocando Rádio ${index + 1}`;
+              categoryNameEl.textContent = currentCategoryKey;
+              updateUIOnPlay();
+          }).catch((error) => {
+              throw error;
+          });
+        } catch (error) {
+          console.error("Falha ao tocar a rádio:", error);
+          showErrorModal(error.message || "Erro ao carregar a rádio.");
+          trackNameEl.textContent = "Erro ao carregar";
+          updateUIOnPause();
         }
+      }
 
-        function updateUIOnPause() {
-            playIcon.classList.remove("fa-pause");
-            playIcon.classList.add("fa-play", "ml-1");
-            trackNameEl.textContent = "Pausado";
-            logo.classList.add('logo-pulse');
-            logo.style.animation = '';
+      function pauseTrack() {
+        try {
+          audio.pause();
+          updateUIOnPause();
+        } catch (error) {
+          console.error("Falha ao pausar:", error);
         }
+      }
 
-        function playTrack(index) {
-            try {
-                const currentCategory = categories[currentCategoryKey];
-                audio.src = currentCategory[index];
-                audio.play();
-                trackNameEl.textContent = `Tocando Rádio ${index + 1}`;
-                categoryNameEl.textContent = currentCategoryKey;
-                updateUIOnPlay();
-            } catch (error) {
-                console.error("Falha ao tocar a rádio:", error);
-                trackNameEl.textContent = "Erro ao carregar";
-                updateUIOnPause();
-            }
+      playButton.addEventListener("click", () => {
+        if (audio.paused) {
+          playTrack(currentTrackIndex);
+        } else {
+          pauseTrack();
         }
+      });
 
-        function pauseTrack() {
-            try {
-                audio.pause();
-                updateUIOnPause();
-            } catch (error) {
-                console.error("Falha ao pausar:", error);
-            }
+      nextButton.addEventListener("click", () => {
+        const currentCategory = categories[currentCategoryKey];
+        currentTrackIndex = (currentTrackIndex + 1) % currentCategory.length;
+        playTrack(currentTrackIndex);
+      });
+
+      prevButton.addEventListener("click", () => {
+        const currentCategory = categories[currentCategoryKey];
+        currentTrackIndex =
+          (currentTrackIndex - 1 + currentCategory.length) %
+          currentCategory.length;
+        playTrack(currentTrackIndex);
+      });
+
+      volumeControl.addEventListener("input", (event) => {
+        audio.volume = event.target.value;
+      });
+
+      categorySelect.addEventListener("change", (event) => {
+        currentCategoryKey = event.target.value;
+        currentTrackIndex = 0;
+        playTrack(currentTrackIndex);
+      });
+
+      audio.addEventListener("ended", () => {
+        if (currentCategoryKey === "Oriental") {
+          nextButton.click();
         }
+      });
 
-        playButton.addEventListener("click", () => {
-            if (audio.paused) {
-                playTrack(currentTrackIndex);
-            } else {
-                pauseTrack();
-            }
+      audio.addEventListener("error", () => {
+        showErrorModal(`Rádio ${currentTrackIndex + 1} indisponível ou falha de conexão.`);
+        trackNameEl.textContent = `Rádio ${currentTrackIndex + 1} indisponível`;
+        updateUIOnPause();
+      });
+
+      // --- Lógica da Página (PWA e Animações) ---
+      document.addEventListener("DOMContentLoaded", () => {
+        const playerContainer = document.getElementById("player-container");
+        const loader = document.getElementById("loader");
+        audio.volume = volumeControl.value;
+
+        setTimeout(() => {
+          loader.classList.add("hidden");
+          playerContainer.classList.remove("opacity-0", "translate-y-4");
+        }, 1500);
+
+        let deferredPrompt;
+        const pwaModal = document.getElementById("pwaModal");
+        const installButton = document.getElementById("installButton");
+        const closeButtons = document.querySelectorAll(".close-modal");
+
+        window.addEventListener("beforeinstallprompt", (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          setTimeout(() => {
+            pwaModal.classList.remove("hidden");
+          }, 6000);
         });
 
-        nextButton.addEventListener("click", () => {
-            const currentCategory = categories[currentCategoryKey];
-            currentTrackIndex = (currentTrackIndex + 1) % currentCategory.length;
-            playTrack(currentTrackIndex);
+        installButton.addEventListener("click", async () => {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            await deferredPrompt.userChoice;
+            deferredPrompt = null;
+            pwaModal.classList.add("hidden");
+          }
         });
 
-        prevButton.addEventListener("click", () => {
-            const currentCategory = categories[currentCategoryKey];
-            currentTrackIndex = (currentTrackIndex - 1 + currentCategory.length) % currentCategory.length;
-            playTrack(currentTrackIndex);
+        closeButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            pwaModal.classList.add("hidden");
+          });
         });
+      });
 
-        volumeControl.addEventListener("input", (event) => {
-            audio.volume = event.target.value;
-        });
+      // --- Animação de Fundo (Estrelas) ---
+      const canvas = document.getElementById("background-canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
-        categorySelect.addEventListener("change", (event) => {
-            currentCategoryKey = event.target.value;
-            currentTrackIndex = 0;
-            playTrack(currentTrackIndex);
-        });
-        
-        audio.addEventListener('ended', () => {
-            if (currentCategoryKey === 'Oriental') {
-               nextButton.click();
-            }
-        });
-        
-        audio.addEventListener('error', () => {
-             trackNameEl.textContent = `Rádio ${currentTrackIndex + 1} indisponível`;
-             updateUIOnPause();
-        });
+      let particlesArray;
 
-        // --- Lógica da Página (PWA e Animações) ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const playerContainer = document.getElementById('player-container');
-            const loader = document.getElementById('loader');
-            audio.volume = volumeControl.value;
-
-            setTimeout(() => {
-                loader.classList.add('hidden');
-                playerContainer.classList.remove('opacity-0', 'translate-y-4');
-            }, 1500);
-            
-            let deferredPrompt;
-            const pwaModal = document.getElementById('pwaModal');
-            const installButton = document.getElementById('installButton');
-            const closeButtons = document.querySelectorAll('.close-modal');
-
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault();
-                deferredPrompt = e;
-                setTimeout(() => {
-                    pwaModal.classList.remove('hidden');
-                }, 6000);
-            });
-
-            installButton.addEventListener('click', async () => {
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    await deferredPrompt.userChoice;
-                    deferredPrompt = null;
-                    pwaModal.classList.add('hidden');
-                }
-            });
-
-            closeButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    pwaModal.classList.add('hidden');
-                });
-            });
-        });
-
-        // --- Animação de Fundo (Estrelas) ---
-        const canvas = document.getElementById('background-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        let particlesArray;
-
-        class Particle {
-            constructor(x, y, directionX, directionY, size, color) {
-                this.x = x;
-                this.y = y;
-                this.directionX = directionX;
-                this.directionY = directionY;
-                this.size = size;
-                this.color = color;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-            update() {
-                if (this.x > canvas.width || this.x < 0) {
-                    this.directionX = -this.directionX;
-                }
-                if (this.y > canvas.height || this.y < 0) {
-                    this.directionY = -this.directionY;
-                }
-                this.x += this.directionX;
-                this.y += this.directionY;
-                this.draw();
-            }
+      class Particle {
+        constructor(x, y, directionX, directionY, size, color) {
+          this.x = x;
+          this.y = y;
+          this.directionX = directionX;
+          this.directionY = directionY;
+          this.size = size;
+          this.color = color;
         }
-
-        function init() {
-            particlesArray = [];
-            let numberOfParticles = (canvas.height * canvas.width) / 9000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                let size = (Math.random() * 1.5) + 0.5; // Estrelas menores
-                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-                let directionX = (Math.random() * 0.2) - 0.1; // Movimento mais lento
-                let directionY = (Math.random() * 0.2) - 0.1;
-                let color = 'rgba(255, 255, 255, 0.5)'; // Cor das estrelas
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
-            }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+          ctx.fillStyle = this.color;
+          ctx.fill();
         }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, innerWidth, innerHeight);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-            }
+        update() {
+          if (this.x > canvas.width || this.x < 0) {
+            this.directionX = -this.directionX;
+          }
+          if (this.y > canvas.height || this.y < 0) {
+            this.directionY = -this.directionY;
+          }
+          this.x += this.directionX;
+          this.y += this.directionY;
+          this.draw();
         }
+      }
 
+      function init() {
+        particlesArray = [];
+        let numberOfParticles = (canvas.height * canvas.width) / 9000;
+        for (let i = 0; i < numberOfParticles; i++) {
+          let size = Math.random() * 1.5 + 0.5; // Estrelas menores
+          let x = Math.random() * (innerWidth - size * 2 - size * 2) + size * 2;
+          let y =
+            Math.random() * (innerHeight - size * 2 - size * 2) + size * 2;
+          let directionX = Math.random() * 0.2 - 0.1; // Movimento mais lento
+          let directionY = Math.random() * 0.2 - 0.1;
+          let color = "rgba(255, 255, 255, 0.5)"; // Cor das estrelas
+          particlesArray.push(
+            new Particle(x, y, directionX, directionY, size, color)
+          );
+        }
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, innerWidth, innerHeight);
+        for (let i = 0; i < particlesArray.length; i++) {
+          particlesArray[i].update();
+        }
+      }
+
+      init();
+      animate();
+
+      window.addEventListener("resize", () => {
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
         init();
-        animate();
-
-        window.addEventListener('resize', () => {
-            canvas.width = innerWidth;
-            canvas.height = innerHeight;
-            init();
-        });
+      });
     </script>
-</body>
+    <!-- Para IA -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "O que é LoFi Square?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "É um player de música Lo-Fi minimalista, criado por Jeiel Miranda, que oferece uma experiência de audição relaxante e sem distrações."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Afiliado a Square Cloud?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Não há nenhuma relação direta com a Square Cloud. O nome 'LoFi Square' é uma referência ao estilo de música Lo-Fi."
+      }
+    }
+  ]
+}
+</script>
+  </body>
 </html>
