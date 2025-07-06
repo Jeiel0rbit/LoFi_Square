@@ -300,6 +300,48 @@
       </div>
     </div>
 
+    <!-- Botão Discord Flutuante e Modal -->
+<button
+  id="openDiscordModal"
+  class="fixed top-4 left-4 z-50 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-lg flex items-center px-4 py-2 gap-2 transition-all duration-200"
+  style="min-width: 44px; min-height: 44px;"
+  title="Entre no nosso Discord"
+>
+  <i class="fab fa-discord text-2xl"></i>
+  <span class="font-semibold hidden sm:inline">Discord</span>
+</button>
+
+<div
+  id="discordModal"
+  class="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 p-4 hidden"
+>
+  <div class="relative bg-gray-900/90 border border-indigo-600 max-w-sm w-full rounded-2xl p-6 pt-12 text-center shadow-2xl">
+    <!-- Topo esquerdo: Discord -->
+    <div class="absolute top-4 left-4 flex items-center gap-2">
+      <i class="fab fa-discord text-indigo-400 text-2xl"></i>
+      <span class="text-indigo-300 font-bold text-lg">Discord</span>
+    </div>
+    <h5 class="text-xl font-bold text-white mb-2 mt-2">Temos um servidor!</h5>
+    <p class="text-gray-200 mb-6">
+      Participe do nosso servidor Discord e experimente o bot <b>Interrupto</b> com a mesma experiência LoFi Square direto no Discord!
+    </p>
+    <a
+      href="https://discord.gg/KfF4NSXHCE"
+      target="_blank"
+      rel="noopener"
+      class="w-full inline-block bg-indigo-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-600 transition-all duration-200 mb-2"
+    >
+      Entrar no Discord
+    </a>
+    <button
+      id="closeDiscordModal"
+      class="w-full bg-gray-700/50 text-gray-300 font-semibold py-2 px-4 rounded-lg hover:bg-gray-600/50 transition-all duration-200"
+    >
+      Fechar
+    </button>
+  </div>
+</div>
+
     <script>
       // --- Lógica do Player ---
       const audio = new Audio();
@@ -553,6 +595,19 @@
         canvas.width = innerWidth;
         canvas.height = innerHeight;
         init();
+      });
+
+      // Botão Discord flutuante e modal
+      const openDiscordModal = document.getElementById('openDiscordModal');
+      const discordModal = document.getElementById('discordModal');
+      const closeDiscordModal = document.getElementById('closeDiscordModal');
+
+      openDiscordModal.addEventListener('click', () => {
+        discordModal.classList.remove('hidden');
+      });
+
+      closeDiscordModal.addEventListener('click', () => {
+        discordModal.classList.add('hidden');
       });
     </script>
     <!-- Para IA -->
