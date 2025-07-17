@@ -227,10 +227,7 @@
             id="category-select"
             class="custom-select w-full bg-black/50 border border-gray-700 rounded-lg py-2 px-4 text-gray-300 focus:outline-none focus:ring-2 focus:ring-white transition-all duration-200"
           >
-            <option value="Ambientes">Ambientes</option>
-            <option value="Gospel">Gospel</option>
-            <option value="Eletronica">Eletrônica</option>
-            <option value="Jazz">Jazz</option>
+            <!-- As opções serão populadas via JavaScript -->
           </select>
         </div>
 
@@ -341,284 +338,195 @@
   </div>
 </div>
 
+<!-- Botão Chat Flutuante e Modal -->
+<button
+  id="openChatModal"
+  class="fixed top-4 right-4 z-50 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg flex items-center px-4 py-2 gap-2 transition-all duration-200"
+  style="min-width: 44px; min-height: 44px;"
+  title="Abrir Chat"
+>
+  <i class="fas fa-comment-dots text-2xl"></i>
+  <span class="font-semibold hidden sm:inline">Chat</span>
+</button>
+
+<div
+  id="chatModal"
+  class="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 p-4 hidden"
+>
+  <div class="relative bg-gray-900/90 border border-blue-600 max-w-lg w-full rounded-2xl p-6 pt-12 text-center shadow-2xl">
+    <!-- Topo esquerdo: Título do Chat -->
+    <div class="absolute top-4 left-4 flex items-center gap-2">
+      <i class="fas fa-comments text-blue-400 text-2xl"></i>
+      <span class="text-blue-300 font-bold text-lg">Chat</span>
+    </div>
+    <h5 class="text-xl font-bold text-white mb-2 mt-2">Conecte-se com a comunidade!</h5>
+    <p class="text-gray-200 mb-6">
+      Participe da conversa e compartilhe suas ideias.
+    </p>
+    <iframe src="https://chat-square.deno.dev" style="width: 100%; max-width: 450px; height: 600px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 0 auto; display: block;"> 
+    </iframe>
+    <button
+      id="closeChatModal"
+      class="w-full mt-4 bg-gray-700/50 text-gray-300 font-semibold py-2 px-4 rounded-lg hover:bg-gray-600/50 transition-all duration-200"
+    >
+      Fechar
+    </button>
+  </div>
+</div>
+
     <script>
-      // --- Lógica do Player ---
+      // --- Elementos do DOM ---
+      const loader = document.getElementById('loader');
+      const playerContainer = document.getElementById('player-container');
       const audio = new Audio();
-      const playButton = document.getElementById("play");
-      const playIcon = document.getElementById("play-icon");
-      const nextButton = document.getElementById("next");
-      const prevButton = document.getElementById("prev");
-      const trackNameEl = document.getElementById("track-name");
-      const categoryNameEl = document.getElementById("category-name");
-      const volumeControl = document.getElementById("volume");
-      const categorySelect = document.getElementById("category-select");
-      const logo = document.getElementById("logo");
-
-      const categories = {
-        Ambientes: [
-          "https://live.hunter.fm/lofi_normal",
-          "https://radio.stereoscenic.com/ama-h",
-          "https://radio.stereoscenic.com/ama-s",
-          "https://radio.stereoscenic.com/asp-h3",
-          
-        ],
-        Gospel: [
-   "https://live.hunter.fm/gospel_normal",
-],
-        Eletronica: [
-          "https://live.hunter.fm/tropical_normal",
-        ],
-        Jazz: [
-          "https://icecast.radiofrance.fr/fipjazz-midfi.mp3",
-        ],
-      };
-
-      let currentCategoryKey = "Ambientes";
-      let currentTrackIndex = 0;
-
+      const playBtn = document.getElementById('play');
+      const playIcon = document.getElementById('play-icon');
+      const prevBtn = document.getElementById('prev');
+      const nextBtn = document.getElementById('next');
+      const volumeSlider = document.getElementById('volume');
+      const categorySelect = document.getElementById('category-select');
+      const categoryNameEl = document.getElementById('category-name');
+      const trackNameEl = document.getElementById('track-name');
       const errorModal = document.getElementById('errorModal');
-      const errorMessage = document.getElementById('errorMessage');
-      const closeErrorModal = document.getElementById('closeErrorModal');
-
-      function showErrorModal(msg) {
-          errorMessage.textContent = msg;
-          errorModal.classList.remove('hidden');
-      }
-
-      closeErrorModal.addEventListener('click', () => {
-          errorModal.classList.add('hidden');
-      });
-
-      function updateUIOnPlay() {
-        playIcon.classList.remove("fa-play", "ml-1");
-        playIcon.classList.add("fa-pause");
-        logo.classList.remove("logo-pulse");
-        logo.style.animation = "spin 20s linear infinite";
-      }
-
-      function updateUIOnPause() {
-        playIcon.classList.remove("fa-pause");
-        playIcon.classList.add("fa-play", "ml-1");
-        trackNameEl.textContent = "Pausado";
-        logo.classList.add("logo-pulse");
-        logo.style.animation = "";
-      }
-
-      function playTrack(index) {
-        try {
-          const currentCategory = categories[currentCategoryKey];
-          if (!currentCategory || !currentCategory[index]) {
-              throw new Error("Rádio não encontrada nesta categoria.");
-          }
-          audio.src = currentCategory[index];
-          audio.play().then(() => {
-              trackNameEl.textContent = `Tocando Rádio ${index + 1}`;
-              categoryNameEl.textContent = currentCategoryKey;
-              updateUIOnPlay();
-          }).catch((error) => {
-              // Re-throw with a more specific message, preserving original error details
-              const enhancedError = new Error(
-                `Failed to play track: ${error.message || "Unknown error"}`
-              );
-              enhancedError.originalError = error; // Keep original error for debugging
-              enhancedError.name = error.name; // Preserve error type if available
-              throw enhancedError;
-          });
-        } catch (error) {
-          console.error("Falha ao tocar a rádio:", error);
-          showErrorModal(error.message || "Erro ao carregar a rádio.");
-          trackNameEl.textContent = "Erro ao carregar";
-          updateUIOnPause();
-        }
-      }
-
-      function pauseTrack() {
-        try {
-          audio.pause();
-          updateUIOnPause();
-        } catch (error) {
-          console.error("Falha ao pausar:", error);
-        }
-      }
-
-      playButton.addEventListener("click", () => {
-        if (audio.paused) {
-          playTrack(currentTrackIndex);
-        } else {
-          pauseTrack();
-        }
-      });
-
-      nextButton.addEventListener("click", () => {
-        const currentCategory = categories[currentCategoryKey];
-        currentTrackIndex = (currentTrackIndex + 1) % currentCategory.length;
-        playTrack(currentTrackIndex);
-      });
-
-      prevButton.addEventListener("click", () => {
-        const currentCategory = categories[currentCategoryKey];
-        currentTrackIndex =
-          (currentTrackIndex - 1 + currentCategory.length) %
-          currentCategory.length;
-        playTrack(currentTrackIndex);
-      });
-
-      volumeControl.addEventListener("input", (event) => {
-        audio.volume = event.target.value;
-      });
-
-      categorySelect.addEventListener("change", (event) => {
-        currentCategoryKey = event.target.value;
-        currentTrackIndex = 0;
-        playTrack(currentTrackIndex);
-      });
-
-      audio.addEventListener("ended", () => {
-        if (currentCategoryKey === "Oriental") {
-          nextButton.click();
-        }
-      });
-
-      audio.addEventListener("error", (event) => {
-        console.error("Audio playback error:", event);
-        let message = `Rádio ${currentTrackIndex + 1} indisponível.`;
-
-        // Enhance the error message based on the error type (if available)
-        if (event.target && event.target.error) {
-          const mediaError = event.target.error;
-          if (mediaError.code === MediaError.MEDIA_ERR_NETWORK) {
-            message = `Erro de rede: Falha ao carregar a rádio ${currentTrackIndex + 1}. Verifique sua conexão.`;
-          } else if (mediaError.code === MediaError.MEDIA_ERR_ABORTED) {
-            message = `Reprodução interrompida: A rádio ${currentTrackIndex + 1} foi interrompida.`;
-          } // Add more checks for other error codes as needed (e.g., MEDIA_ERR_SRC_NOT_SUPPORTED)
-        }
-        showErrorModal(message);
-        trackNameEl.textContent = `Rádio ${currentTrackIndex + 1} com erro`;
-        updateUIOnPause();
-      });
-
-      // --- Lógica da Página (PWA e Animações) ---
-      document.addEventListener("DOMContentLoaded", () => {
-        const playerContainer = document.getElementById("player-container");
-        const loader = document.getElementById("loader");
-        audio.volume = volumeControl.value;
-
-        setTimeout(() => {
-          loader.classList.add("hidden");
-          playerContainer.classList.remove("opacity-0", "translate-y-4");
-        }, 1500);
-
-        let deferredPrompt;
-        const pwaModal = document.getElementById("pwaModal");
-        const installButton = document.getElementById("installButton");
-        const closeButtons = document.querySelectorAll(".close-modal");
-
-        window.addEventListener("beforeinstallprompt", (e) => {
-          e.preventDefault();
-          deferredPrompt = e;
-          setTimeout(() => {
-            pwaModal.classList.remove("hidden");
-          }, 6000);
-        });
-
-        installButton.addEventListener("click", async () => {
-          if (deferredPrompt) {
-            deferredPrompt.prompt();
-            await deferredPrompt.userChoice;
-            deferredPrompt = null;
-            pwaModal.classList.add("hidden");
-          }
-        });
-
-        closeButtons.forEach((button) => {
-          button.addEventListener("click", () => {
-            pwaModal.classList.add("hidden");
-          });
-        });
-      });
-
-      // --- Animação de Fundo (Estrelas) ---
-      const canvas = document.getElementById("background-canvas");
-      const ctx = canvas.getContext("2d");
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      let particlesArray;
-
-      class Particle {
-        constructor(x, y, directionX, directionY, size, color) {
-          this.x = x;
-          this.y = y;
-          this.directionX = directionX;
-          this.directionY = directionY;
-          this.size = size;
-          this.color = color;
-        }
-        draw() {
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-          ctx.fillStyle = this.color;
-          ctx.fill();
-        }
-        update() {
-          if (this.x > canvas.width || this.x < 0) {
-            this.directionX = -this.directionX;
-          }
-          if (this.y > canvas.height || this.y < 0) {
-            this.directionY = -this.directionY;
-          }
-          this.x += this.directionX;
-          this.y += this.directionY;
-          this.draw();
-        }
-      }
-
-      function init() {
-        particlesArray = [];
-        let numberOfParticles = (canvas.height * canvas.width) / 9000;
-        for (let i = 0; i < numberOfParticles; i++) {
-          let size = Math.random() * 1.5 + 0.5; // Estrelas menores
-          let x = Math.random() * (innerWidth - size * 2 - size * 2) + size * 2;
-          let y =
-            Math.random() * (innerHeight - size * 2 - size * 2) + size * 2;
-          let directionX = Math.random() * 0.2 - 0.1; // Movimento mais lento
-          let directionY = Math.random() * 0.2 - 0.1;
-          let color = "rgba(255, 255, 255, 0.5)"; // Cor das estrelas
-          particlesArray.push(
-            new Particle(x, y, directionX, directionY, size, color)
-          );
-        }
-      }
-
-      function animate() {
-        requestAnimationFrame(animate);
-        ctx.clearRect(0, 0, innerWidth, innerHeight);
-        for (let i = 0; i < particlesArray.length; i++) {
-          particlesArray[i].update();
-        }
-      }
-
-      init();
-      animate();
-
-      window.addEventListener("resize", () => {
-        canvas.width = innerWidth;
-        canvas.height = innerHeight;
-        init();
-      });
-
-      // Botão Discord flutuante e modal
+      const errorMessageEl = document.getElementById('errorMessage');
+      const closeErrorModalBtn = document.getElementById('closeErrorModal');
+      const pwaModal = document.getElementById('pwaModal');
+      const installButton = document.getElementById('installButton');
       const openDiscordModal = document.getElementById('openDiscordModal');
       const discordModal = document.getElementById('discordModal');
       const closeDiscordModal = document.getElementById('closeDiscordModal');
+      const openChatModal = document.getElementById('openChatModal');
+      const chatModal = document.getElementById('chatModal');
+      const closeChatModal = document.getElementById('closeChatModal');
 
-      openDiscordModal.addEventListener('click', () => {
-        discordModal.classList.remove('hidden');
+      // --- Dados e Estado do Player ---
+      const categories = {
+        Ambientes: [
+          { name: "Lofi Girl", url: "https://live.hunter.fm/lofi_normal" },
+          { name: "Ambient Music (H)", url: "https://radio.stereoscenic.com/ama-h" },
+          { name: "Ambient Music (S)", url: "https://radio.stereoscenic.com/ama-s" },
+          { name: "Aspen", url: "https://radio.stereoscenic.com/asp-h3" },
+        ],
+        Gospel: [
+          { name: "Hunter FM Gospel", url: "https://live.hunter.fm/gospel_normal" },
+        ],
+        Eletronica: [
+          { name: "Tropical House", url: "https://live.hunter.fm/tropical_normal" },
+        ],
+        Jazz: [
+          { name: "FIP Jazz", url: "https://icecast.radiofrance.fr/fipjazz-midfi.mp3" },
+        ],
+      };
+
+      let currentCategory = 'Ambientes';
+      let currentTrackIndex = 0;
+      let isPlaying = false;
+
+      // --- Funções do Player ---
+      function loadTrack(category, trackIndex) {
+        const track = categories[category][trackIndex];
+        if (track) {
+          audio.src = track.url;
+          categoryNameEl.textContent = category === 'Eletronica' ? 'Eletrônica' : category;
+          trackNameEl.textContent = track.name || `Stream ${trackIndex + 1}`;
+        }
+      }
+
+      function playTrack() {
+        isPlaying = true;
+        audio.play().catch(handleError);
+        playIcon.classList.replace('fa-play', 'fa-pause');
+        trackNameEl.textContent = "Conectando...";
+      }
+
+      function pauseTrack() {
+        isPlaying = false;
+        audio.pause();
+        playIcon.classList.replace('fa-pause', 'fa-play');
+      }
+
+      function nextTrack() {
+        const tracks = categories[currentCategory];
+        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+        loadTrack(currentCategory, currentTrackIndex);
+        if (isPlaying) playTrack();
+      }
+
+      function prevTrack() {
+        const tracks = categories[currentCategory];
+        currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+        loadTrack(currentCategory, currentTrackIndex);
+        if (isPlaying) playTrack();
+      }
+
+      function handleError(e) {
+        console.error("Audio Error:", e);
+        pauseTrack();
+        errorMessageEl.textContent = "Não foi possível carregar o stream. Tente outra rádio.";
+        errorModal.classList.remove('hidden');
+      }
+
+      function populateCategories() {
+        categorySelect.innerHTML = '';
+        Object.keys(categories).forEach(category => {
+          const option = document.createElement('option');
+          option.value = category;
+          option.textContent = category === 'Eletronica' ? 'Eletrônica' : category;
+          categorySelect.appendChild(option);
+        });
+        categorySelect.value = currentCategory;
+      }
+
+      // --- Event Listeners ---
+      playBtn.addEventListener('click', () => (isPlaying ? pauseTrack() : playTrack()));
+      nextBtn.addEventListener('click', nextTrack);
+      prevBtn.addEventListener('click', prevTrack);
+      volumeSlider.addEventListener('input', (e) => (audio.volume = e.target.value));
+      categorySelect.addEventListener('change', (e) => {
+        currentCategory = e.target.value;
+        currentTrackIndex = 0;
+        loadTrack(currentCategory, currentTrackIndex);
+        if (isPlaying) playTrack();
+      });
+      audio.addEventListener('canplay', () => {
+        if (isPlaying) {
+          const track = categories[currentCategory][currentTrackIndex];
+          trackNameEl.textContent = track.name || `Stream ${currentTrackIndex + 1}`;
+        }
+      });
+      audio.addEventListener('error', handleError);
+      closeErrorModalBtn.addEventListener('click', () => errorModal.classList.add('hidden'));
+
+      // --- Inicialização ---
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+          loader.classList.add('hidden');
+          playerContainer.classList.remove('opacity-0', 'translate-y-4');
+        }, 500);
+        populateCategories();
+        loadTrack(currentCategory, currentTrackIndex);
+        audio.volume = volumeSlider.value;
       });
 
-      closeDiscordModal.addEventListener('click', () => {
-        discordModal.classList.add('hidden');
+      // --- Modais (PWA, Discord, Chat) ---
+      let deferredPrompt;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        pwaModal.classList.remove('hidden');
       });
+      installButton.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt = null;
+          pwaModal.classList.add('hidden');
+        }
+      });
+      document.querySelector('#pwaModal .close-modal').addEventListener('click', () => pwaModal.classList.add('hidden'));
+      openDiscordModal.addEventListener('click', () => discordModal.classList.remove('hidden'));
+      closeDiscordModal.addEventListener('click', () => discordModal.classList.add('hidden'));
+      openChatModal.addEventListener('click', () => chatModal.classList.remove('hidden'));
+      closeChatModal.addEventListener('click', () => chatModal.classList.add('hidden'));
     </script>
     <!-- Para IA -->
     <script type="application/ld+json">
