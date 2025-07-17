@@ -228,10 +228,9 @@
             class="custom-select w-full bg-black/50 border border-gray-700 rounded-lg py-2 px-4 text-gray-300 focus:outline-none focus:ring-2 focus:ring-white transition-all duration-200"
           >
             <option value="Ambientes">Ambientes</option>
+            <option value="Gospel">Gospel</option>
+            <option value="Eletronica">Eletrônica</option>
             <option value="Jazz">Jazz</option>
-            <option value="Eletronica">Eletronica</option>
-            <option value="Clássica">Clássica</option>
-            <option value="Oriental">Oriental</option>
           </select>
         </div>
 
@@ -357,27 +356,20 @@
 
       const categories = {
         Ambientes: [
+          "https://live.hunter.fm/lofi_normal",
           "https://radio.stereoscenic.com/ama-h",
           "https://radio.stereoscenic.com/ama-s",
           "https://radio.stereoscenic.com/asp-h3",
-          "https://144.76.106.52:7000/chillout.mp3",
+          
+        ],
+        Gospel: [
+   "https://live.hunter.fm/gospel_normal",
+],
+        Eletronica: [
+          "https://live.hunter.fm/tropical_normal",
         ],
         Jazz: [
-          "https://icecast.radiofrance.fr/fip-midfi.mp3",
           "https://icecast.radiofrance.fr/fipjazz-midfi.mp3",
-          "https://streamingv2.shoutcast.com/djdavesessions?icy=https",
-          "https://icecast.radiofrance.fr/fipgroove-midfi.mp3",
-        ],
-        Eletronica: [
-          "https://144.76.106.52:7000/electronic.mp3",
-          "https://144.76.106.52:7000/psytrance.mp3",
-          "http://51.68.153.140:9041/1",
-          "https://144.76.106.52:7000/techno.mp3",
-          "https://ice3.somafm.com/groovesalad-128-mp3",
-        ],
-        Clássica: ["https://everestpanel.lowcoststream.com:7135/;?icy=https"],
-        Oriental: [
-          "https://t4.bcbits.com/stream/a02589df14e2b8e781d81f2c203ff5bb/mp3-128/2693102669?p=0&ts=1737120943&t=3b6c9acd5fcd18cd04ef736b415ad8f2926ee2e0&token=1737120943_41d2abae470a59ea22380aae00af4df6206b93bc",
         ],
       };
 
@@ -424,7 +416,13 @@
               categoryNameEl.textContent = currentCategoryKey;
               updateUIOnPlay();
           }).catch((error) => {
-              throw error;
+              // Re-throw with a more specific message, preserving original error details
+              const enhancedError = new Error(
+                `Failed to play track: ${error.message || "Unknown error"}`
+              );
+              enhancedError.originalError = error; // Keep original error for debugging
+              enhancedError.name = error.name; // Preserve error type if available
+              throw enhancedError;
           });
         } catch (error) {
           console.error("Falha ao tocar a rádio:", error);
@@ -481,9 +479,21 @@
         }
       });
 
-      audio.addEventListener("error", () => {
-        showErrorModal(`Rádio ${currentTrackIndex + 1} indisponível ou falha de conexão.`);
-        trackNameEl.textContent = `Rádio ${currentTrackIndex + 1} indisponível`;
+      audio.addEventListener("error", (event) => {
+        console.error("Audio playback error:", event);
+        let message = `Rádio ${currentTrackIndex + 1} indisponível.`;
+
+        // Enhance the error message based on the error type (if available)
+        if (event.target && event.target.error) {
+          const mediaError = event.target.error;
+          if (mediaError.code === MediaError.MEDIA_ERR_NETWORK) {
+            message = `Erro de rede: Falha ao carregar a rádio ${currentTrackIndex + 1}. Verifique sua conexão.`;
+          } else if (mediaError.code === MediaError.MEDIA_ERR_ABORTED) {
+            message = `Reprodução interrompida: A rádio ${currentTrackIndex + 1} foi interrompida.`;
+          } // Add more checks for other error codes as needed (e.g., MEDIA_ERR_SRC_NOT_SUPPORTED)
+        }
+        showErrorModal(message);
+        trackNameEl.textContent = `Rádio ${currentTrackIndex + 1} com erro`;
         updateUIOnPause();
       });
 
