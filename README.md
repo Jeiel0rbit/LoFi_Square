@@ -1,3 +1,6 @@
+> [!note]
+> Esse `readme.md` será reescrito para refletir novas atualizações do código e seguindo a `milestone`.
+
 LoFi Square
 Um player de rádio web minimalista e elegante para você curtir streams de Lo-Fi, Jazz e muito mais. Focado em uma experiência limpa e relaxante, com um design que remete à imensidão do espaço.
 
