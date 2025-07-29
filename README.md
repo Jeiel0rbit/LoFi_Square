@@ -10,7 +10,9 @@
 
 <p align="center">
     <span>
-        <iframe src="https://discord.com/widget?id=1381014718436610178&theme=dark" width="300" height="250" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" style="display:inline-block; vertical-align:middle;"></iframe>
+        <a href="https://discord.com/invite/1381014718436610178">
+            <img src="https://discord.com/api/guilds/1381014718436610178/widget.png?style=banner2" alt="Discord Server" width="350" height="500" />
+        </a>
     </span>
     <span style="display:inline-block; vertical-align:middle; margin-left: 24px;">
         <a href="https://top.gg/bot/736265423154663424">
@@ -18,7 +20,6 @@
         </a>
     </span>
 </p>
-
 
 ## ✨ Sobre o Projeto:
 
