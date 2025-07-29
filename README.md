@@ -1,6 +1,24 @@
-# --- LoFi Square ---
+<p align="center">
+    <img src="https://cdn.discordapp.com/banners/1387127795750010980/71801575b26eda311469023a500eb478?size=512" alt="LoFi Square Banner" />
+</p>
 
-Um player de rádio web minimalista e elegante para você curtir streams de Lo-Fi, Jazz e muito mais. Focado em uma experiência limpa e relaxante, com um design que remete à imensidão do espaço.
+<h1 align="center">--- LoFi Square ---</h1>
+
+<h3 align="center">
+    Um player de rádio web minimalista e elegante para você curtir streams de Lo-Fi, Jazz e muito mais. Focado em uma experiência limpa e relaxante, com um design que remete à imensidão do espaço.
+</h3>
+
+<p align="center">
+    <span>
+        <iframe src="https://discord.com/widget?id=1381014718436610178&theme=dark" width="300" height="250" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" style="display:inline-block; vertical-align:middle;"></iframe>
+    </span>
+    <span style="display:inline-block; vertical-align:middle; margin-left: 24px;">
+        <a href="https://top.gg/bot/736265423154663424">
+            <img src="https://top.gg/api/v1/widgets/large/736265423154663424" alt="Discord Bots" />
+        </a>
+    </span>
+</p>
+
 
 ## ✨ Sobre o Projeto:
 
