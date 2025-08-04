@@ -374,6 +374,65 @@
   </div>
 </div>
 
+  <script>
+  // --- Fundo Animado: Céu Estrelado ---
+  const canvas = document.getElementById('background-canvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function createStars(count) {
+    stars = [];
+    for (let i = 0; i < count; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.2 + 0.3,
+        speed: Math.random() * 0.15 + 0.05,
+        alpha: Math.random() * 0.5 + 0.5,
+      });
+    }
+  }
+
+  function animateStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let star of stars) {
+      ctx.save();
+      ctx.globalAlpha = star.alpha;
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = "#fff";
+      ctx.shadowColor = "#fff";
+      ctx.shadowBlur = 8;
+      ctx.fill();
+      ctx.restore();
+
+      // Movimento sutil para cima
+      star.y -= star.speed;
+      if (star.y < 0) {
+        star.y = canvas.height;
+        star.x = Math.random() * canvas.width;
+      }
+    }
+    requestAnimationFrame(animateStars);
+  }
+
+  window.addEventListener('resize', () => {
+    resizeCanvas();
+    createStars(Math.floor(window.innerWidth / 4));
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    resizeCanvas();
+    createStars(Math.floor(window.innerWidth / 4));
+    animateStars();
+  });
+</script>
+
     <script>
       // --- Elementos do DOM ---
       const loader = document.getElementById('loader');
@@ -556,6 +615,10 @@
 <!-- GoatCounter -->
 <script data-goatcounter="https://jeiel.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
-</script>
+<script
+    src="https://app.rybbit.io/api/script.js"
+    data-site-id="1982"
+    defer
+></script>
   </body>
 </html>
