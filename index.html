@@ -157,9 +157,28 @@
         opacity: 0;
         visibility: hidden;
       }
+      /* Ajuste dos ícones play pause */
+      /* Centraliza conteúdo do botão */
+#play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dá largura fixa para o ícone */
+#play-icon {
+  width: 1em;
+  text-align: center;
+}
+
+/* Ajusta só quando for o ícone de play (triângulo) */
+#play-icon.fa-play {
+  transform: translateX(5%);
+}
+
     </style>
   </head>
-  <body class="w-full h-screen flex items-center justify-center p-4">
+  <body class="w-full min-h-screen flex flex-col p-4 relative">
     <!-- Fundo de Partículas (Estrelas) -->
     <canvas id="background-canvas"></canvas>
 
@@ -176,77 +195,80 @@
       <p class="text-gray-300 text-lg">Carregando streams...</p>
     </div>
 
-    <!-- Player -->
-    <main
-      id="player-container"
-      class="player-card w-full max-w-sm rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6 opacity-0 translate-y-4 transition-all duration-700 ease-out"
-    >
-      <!-- Cabeçalho -->
-      <div class="text-center">
-        <img
-          id="logo"
-          src="https://raw.githubusercontent.com/jeiel0rbit/LoFi_Square/main/assets/icons/logo.png"
-          alt="Logo"
-          class="w-28 h-28 mx-auto rounded-full shadow-lg logo-pulse transition-transform duration-300 hover:scale-105"
-        />
-        <div id="track-info" class="mt-4">
-          <h1 id="category-name" class="text-xl font-bold text-white">
-            Ambientes
-          </h1>
-          <p id="track-name" class="text-gray-400 text-sm">Pronto para tocar</p>
-        </div>
-      </div>
-
-      <!-- Controles Principais -->
-      <div class="flex items-center justify-center space-x-6">
-        <button
-          id="prev"
-          class="text-gray-400 hover:text-white transition-colors duration-200"
-        >
-          <i class="fas fa-backward fa-2x"></i>
-        </button>
-        <button
-          id="play"
-          class="bg-white text-black w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-200 transition-all duration-200 transform hover:scale-105"
-        >
-          <i id="play-icon" class="fas fa-play fa-2x ml-1"></i>
-        </button>
-        <button
-          id="next"
-          class="text-gray-400 hover:text-white transition-colors duration-200"
-        >
-          <i class="fas fa-forward fa-2x"></i>
-        </button>
-      </div>
-
-      <!-- Seletor de Categoria e Volume -->
-      <div class="space-y-6 pt-4">
-        <!-- Seletor de Categoria -->
-        <div>
-          <select
-            id="category-select"
-            class="custom-select w-full bg-black/50 border border-gray-700 rounded-lg py-2 px-4 text-gray-300 focus:outline-none focus:ring-2 focus:ring-white transition-all duration-200"
-          >
-            <!-- As opções serão populadas via JavaScript -->
-          </select>
-        </div>
-
-        <!-- Controle de Volume -->
-        <div class="flex items-center space-x-3">
-          <i class="fas fa-volume-down text-gray-500"></i>
-          <input
-            type="range"
-            id="volume"
-            min="0"
-            max="1"
-            step="0.01"
-            value="0.5"
-            class="volume-slider"
+    <!-- Wrapper centralizador -->
+    <div class="flex flex-1 items-center justify-center">
+      <!-- Player -->
+      <main
+        id="player-container"
+        class="player-card w-full max-w-sm mx-auto rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6 opacity-0 translate-y-4 transition-all duration-700 ease-out"
+      >
+        <!-- Cabeçalho -->
+        <div class="text-center">
+          <img
+            id="logo"
+            src="https://raw.githubusercontent.com/jeiel0rbit/LoFi_Square/main/assets/icons/logo.png"
+            alt="Logo"
+            class="w-28 h-28 mx-auto rounded-full shadow-lg logo-pulse transition-transform duration-300 hover:scale-105"
           />
-          <i class="fas fa-volume-up text-gray-500"></i>
+          <div id="track-info" class="mt-4">
+            <h1 id="category-name" class="text-xl font-bold text-white">
+              Ambientes
+            </h1>
+            <p id="track-name" class="text-gray-400 text-sm">Pronto para tocar</p>
+          </div>
         </div>
-      </div>
-    </main>
+
+        <!-- Controles Principais -->
+        <div class="flex items-center justify-center space-x-6">
+          <button
+            id="prev"
+            class="text-gray-400 hover:text-white transition-colors duration-200"
+          >
+            <i class="fas fa-backward fa-2x"></i>
+          </button>
+          <button
+            id="play"
+            class="bg-white text-black w-16 h-16 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-200 transition-all duration-200 transform hover:scale-105"
+          >
+            <i id="play-icon" class="fas fa-play fa-2x"></i>
+          </button>
+          <button
+            id="next"
+            class="text-gray-400 hover:text-white transition-colors duration-200"
+          >
+            <i class="fas fa-forward fa-2x"></i>
+          </button>
+        </div>
+
+        <!-- Seletor de Categoria e Volume -->
+        <div class="space-y-6 pt-4">
+          <!-- Seletor de Categoria -->
+          <div>
+            <select
+              id="category-select"
+              class="custom-select w-full bg-black/50 border border-gray-700 rounded-lg py-2 px-4 text-gray-300 focus:outline-none focus:ring-2 focus:ring-white transition-all duration-200"
+            >
+              <!-- As opções serão populadas via JavaScript -->
+            </select>
+          </div>
+
+          <!-- Controle de Volume -->
+          <div class="flex items-center space-x-3">
+            <i class="fas fa-volume-down text-gray-500"></i>
+            <input
+              type="range"
+              id="volume"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0.5"
+              class="volume-slider"
+            />
+            <i class="fas fa-volume-up text-gray-500"></i>
+          </div>
+        </div>
+      </main>
+    </div>
 
     <!-- Modal de Instalação PWA -->
     <div
@@ -373,6 +395,15 @@
     </button>
   </div>
 </div>
+
+    <!-- Rodapé fixo com badge de carbono -->
+    <footer class="fixed inset-x-0 bottom-0 flex justify-center pb-4 pointer-events-none z-40">
+      <div class="player-card max-w-xs w-full mx-auto rounded-xl p-4 flex flex-col items-center pointer-events-auto">
+        <div id="wcb" class="carbonbadge wcb-d"></div>
+        <span class="text-gray-400 text-xs mt-2">Este site é sustentável 🌱</span>
+      </div>
+    </footer>
+    <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
 
   <script>
   // --- Fundo Animado: Céu Estrelado ---
